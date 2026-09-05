@@ -104,6 +104,8 @@ export class AccommodationUpdatingComponent implements OnInit {
             amenities:this.accommodation.amenities,
             images:this.accommodation.images,
             type:this.accommodation.type,
+            pricedPerGuest:this.accommodation.pricedPerGuest,
+            reservationCancellationDeadline:this.accommodation.reservationCancellationDeadline,
             availabilityPeriods:[]
           }
           this.accommodation.availabilityPeriods.forEach((availabilityPeriod)=>{
@@ -129,10 +131,13 @@ export class AccommodationUpdatingComponent implements OnInit {
                 });
               },
 
-              error =>{
-                this._snackBar.open('Something went wrong', 'Close',{
-                  duration: 2000,
-                });
+              (error: HttpErrorResponse) =>{
+                if (error && error.error && error.error.message)
+                  this.sharedService.openSnackBar(error.error.message);
+                else
+                  this._snackBar.open('Something went wrong', 'Close',{
+                    duration: 2000,
+                  });
               });
         },
         error: (error: HttpErrorResponse): void => {

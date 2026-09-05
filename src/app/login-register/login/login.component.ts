@@ -5,6 +5,8 @@ import {LoginCredentials} from "./model/login-credentials.model";
 import {AuthenticationService} from "../authentication.service";
 import {TokenModel} from "./model/token.model";
 import {TokenService} from "../../shared/token.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {SharedService} from "../../shared/shared.service";
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,7 @@ export class LoginComponent {
     private router: Router,
     private authenticationService: AuthenticationService,
     private tokenService : TokenService,
+    private sharedService: SharedService,
     ) {}
 
   loginForm : FormGroup = new FormGroup({
@@ -35,8 +38,8 @@ export class LoginComponent {
           this.tokenService.setToken(data);
           this.router.navigate(['']);
       },
-        error : error => {
-        console.log(error);
+        error : (error : HttpErrorResponse) => {
+        this.sharedService.openSnackBar(error.error?.message ?? 'Error reaching the server.');
         }
       });
   }

@@ -26,4 +26,6 @@ export interface AccommodationBasicInfoDTO{
     }
     deleted:boolean;
   }[];
+  pricedPerGuest:boolean;
+  reservationCancellationDeadline:number;
 }

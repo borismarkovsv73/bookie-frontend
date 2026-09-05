@@ -1,0 +1,29 @@
+<div class="activate-container">
+  <img class="bookie-quirky" src="../../../assets/images/bookie-quirky.svg" alt="" height="236" width="272"/>
+  <mat-card class="activate-card">
+    <mat-card-header class="activate-card-header">
+      <mat-card-title>Account activation</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (state === 'loading') {
+        <p>Activating your account&hellip;</p>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      }
+
+      @if (state === 'success') {
+        <p>Your account has been activated! You can now log in.</p>
+        <button mat-raised-button color="primary" [routerLink]="'/login'">Go to login</button>
+      }
+
+      @if (state === 'error') {
+        <p class="error-message">{{ errorMessage }}</p>
+        @if (isExpired) {
+          <p>Please register again to receive a new activation link.</p>
+          <button mat-raised-button color="primary" [routerLink]="'/register'">Register again</button>
+        } @else {
+          <button mat-raised-button color="primary" [routerLink]="'/login'">Go to login</button>
+        }
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -4,12 +4,15 @@ import { LoginComponent } from './login/login.component';
 import { MaterialModule } from "../infrastructure/material/material.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
+import { ActivateComponent } from './activate/activate.component';
 import {RouterModule} from "@angular/router";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ActivateComponent
   ],
     imports: [
         CommonModule,
@@ -18,6 +21,7 @@ import {RouterModule} from "@angular/router";
         NgOptimizedImage,
         RouterModule,
         ReactiveFormsModule,
+        SharedModule,
     ]
 })
 

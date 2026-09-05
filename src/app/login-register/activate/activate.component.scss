@@ -1,0 +1,35 @@
+.activate-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.activate-card {
+  background-color: transparent;
+  box-shadow: none;
+  width: 300px;
+  color: black;
+  padding: 20px;
+  margin: 50px;
+  text-align: center;
+  font: 1em "Rubik";
+  @media (prefers-color-scheme: dark) {
+    color: #FDF5EC;
+  }
+}
+
+.bookie-quirky {
+  margin-right: 20px;
+}
+
+.activate-card-header {
+  padding: 20px
+}
+
+.error-message {
+  color: #b3261e;
+  @media (prefers-color-scheme: dark) {
+    color: #ffb4ab;
+  }
+}

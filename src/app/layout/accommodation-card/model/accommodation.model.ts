@@ -25,7 +25,8 @@ export interface AccommodationDTO{
     type:string;
     isDeleted:boolean;
   }[];
-  reservationCancellationDeadline:string;
+  reservationCancellationDeadline:number;
   type:string;
   reservationAutoAccepted:boolean;
+  pricedPerGuest:boolean;
 }

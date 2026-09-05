@@ -10,6 +10,9 @@ import {AccommodationApproval} from "./accommodation-details-screen/model/accomm
 import {
   AccommodationAutoAccept
 } from "../accommodation-updating/accommodation-updating/model/accommodation-auto-accept.model";
+import {
+  AccommodationCreateDTO
+} from "../accommodation-creation/accommodation-creation/model/accommodation-create.model";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +37,13 @@ export class AccommodationService {
   }
   getAccommodationsByOwner(id:string):Observable<AccommodationDTO[]>{
     return this.httpClient.get<AccommodationDTO[]>(this.accommodationControllerRoute+'/owner-accommodations/'+id);
+  }
+  createAccommodation(accommodation:AccommodationCreateDTO): Observable<AccommodationDTO>{
+    return this.httpClient.post<AccommodationDTO>(this.accommodationControllerRoute,accommodation).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(()=>error);
+      })
+    );
   }
   updateAccommodationBasicInfo(accommodation:AccommodationBasicInfoDTO): Observable<AccommodationBasicInfoDTO>{
     return this.httpClient.put<AccommodationBasicInfoDTO>(this.accommodationControllerRoute+'/'+accommodation.id+"/basic-info",accommodation).pipe(

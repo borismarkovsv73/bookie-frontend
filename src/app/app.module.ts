@@ -10,6 +10,7 @@ import {LoginRegisterModule} from "./login-register/login-register.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {provideHttpClient, withFetch} from "@angular/common/http";
 import {AccommodationUpdatingModule} from "./accommodation-updating/accommodation-updating.module";
+import {AccommodationCreationModule} from "./accommodation-creation/accommodation-creation.module";
 import {OwnerAccommodationsModule} from "./owner-accommodations/owner-accommodations.module";
 import {OwnerReviewsModule} from "./owner-reviews/owner-reviews.module";
 import {TokenInterceptor} from "./shared/interceptor/token-interceptor";
@@ -30,6 +31,7 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
     ProfilesModule,
     LoginRegisterModule,
     AccommodationUpdatingModule,
+    AccommodationCreationModule,
     HttpClientModule,
     OwnerAccommodationsModule,
     OwnerReviewsModule,

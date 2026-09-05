@@ -15,6 +15,13 @@
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="full-width">
+                <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword" required>
+                @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
+                  <mat-error>Passwords do not match</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
                 <input matInput placeholder="Name" formControlName="name" required>
               </mat-form-field>
 
@@ -45,3 +52,4 @@
         <p [routerLink]="'/login'">Already have an account?</p>
     </mat-card>
 </div>
+<app-snack-bar />

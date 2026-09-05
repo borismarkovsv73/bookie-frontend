@@ -1,20 +1,13 @@
 <div class="create-container">
   <mat-card class="create-card">
     <mat-card-header class="create-header">
-      <mat-card-title>Update Accommodation</mat-card-title>
+      <mat-card-title>Create Accommodation</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form class="create-forum" id="form">
         <div class="form-column">
           <div class="bookie-quirky"></div>
-          <form enctype="multipart/form-data">
-            <button mat-raised-button class="forum-buttons" color="primary" (click)="fileInput.click()">Choose file</button>
-            <input hidden type="file" accept=".jpg" #fileInput (change)="onFileSelected($event)">
-          </form>
-          <div class="imageDiv" *ngFor="let image of images; trackBy: trackByImage ; let i=index">
-            <img [src]="image.path" alt="Image" height="50" width="50"/>
-            <button mat-flat-button color="primary" class="delete-button" (click)="deleteImage(image.id)">Delete</button>
-          </div>
+          <p class="images-hint">You'll be able to add photos right after the accommodation is created.</p>
         </div>
         <div class="form-column">
           <!-- Name Field -->
@@ -39,6 +32,7 @@
             <mat-label>Longitude</mat-label>
             <input matInput placeholder="Longitude" name="longitude" [(ngModel)]="accommodation.location.longitude" required>
           </mat-form-field>
+
           <mat-checkbox [(ngModel)]="accommodation.reservationAutoAccepted" name="isReservationAutoAccepted" class="autoAccept">Auto accept reservations?</mat-checkbox>
 
           <!-- Price mode: chosen once for the whole property -->
@@ -102,11 +96,13 @@
             </mat-form-field>
             <button mat-flat-button color="primary" class="delete-button" (click)="addPeriod()">Add</button>
           </div>
+
           <mat-checkbox class="combo-boxes" *ngFor="let amenity of amenities" [checked]="accommodation.amenities.includes(amenity)" (change)="updateAmenities(amenity)">
             {{ amenity }}
           </mat-checkbox>
+
           <!-- Submit Button -->
-          <button mat-raised-button color="primary" class="forum-buttons" type="submit" (click)="SaveChanges()" form="form">Save changes</button>
+          <button mat-raised-button color="primary" class="forum-buttons" type="submit" (click)="CreateAccommodation()" form="form">Create accommodation</button>
         </div>
       </form>
     </mat-card-content>

@@ -19,7 +19,7 @@
   <div class="buttons-container" *ngIf="userType == 'Owner'">
     <button mat-button [routerLink]="'/reservations'">Reservations for my accommodations</button>
     <button mat-button [routerLink]="'/owner/'+ this.tokenService.getIdFromToken()+'/accommodations'">View my accommodations</button>
-    <button mat-button>Create an accommodation</button>
+    <button mat-button [routerLink]="'/create-accommodation'">Create an accommodation</button>
     <button mat-button routerLink="profile">Welcome, {{userName}}</button>
     <button (click)="logOut()" mat-button>Log out</button>
     <button mat-icon-button aria-label="notifications">

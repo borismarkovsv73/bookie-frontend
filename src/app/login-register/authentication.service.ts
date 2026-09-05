@@ -21,4 +21,8 @@ export class AuthenticationService {
   register(userdata : NewUser) : Observable<NewUser>{
     return this.httpClient.post<NewUser>(this.authenticationControllerRoute+"register",userdata);
   }
+
+  activate(token : string) : Observable<void>{
+    return this.httpClient.get<void>(this.authenticationControllerRoute+"activate/"+token);
+  }
 }

@@ -11,8 +11,8 @@ export interface AccommodationCreateDTO {
   availabilityPeriods: {
     price: number;
     period: {
-      startTimestamp: number;
-      endTimestamp: number;
+      startDate: string;
+      endDate: string;
     };
   }[];
   images: any[];

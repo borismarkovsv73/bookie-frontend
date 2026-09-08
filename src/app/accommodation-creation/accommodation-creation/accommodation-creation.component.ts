@@ -10,7 +10,8 @@ import {AccommodationDTO} from "../../layout/accommodation-card/model/accommodat
 @Component({
   selector: 'app-accommodation-creation',
   templateUrl: './accommodation-creation.component.html',
-  styleUrl: './accommodation-creation.component.scss'
+  styleUrl: './accommodation-creation.component.scss',
+  host: {ngSkipHydration: 'true'},
 })
 export class AccommodationCreationComponent {
   amenities: string[] = ['WiFi', 'Parking', 'Kitchen', 'AC'];
@@ -138,11 +139,15 @@ export class AccommodationCreationComponent {
       const formatStartDate: Date | null = this.parseDateString(availabilityPeriod.period.startDate);
       const formatEndDate: Date | null = this.parseDateString(availabilityPeriod.period.endDate);
       if (formatStartDate != null && formatEndDate != null) {
+        // The backend's create endpoint deserializes this straight into the domain Period class, whose
+        // only fields are startDate/endDate (LocalDate, ISO yyyy-MM-dd) - NOT startTimestamp/endTimestamp
+        // millis (that shape is only for the separate update-endpoint's PeriodDTO). Sending millis here
+        // silently left startDate/endDate null, which then failed a NOT NULL DB constraint with a 500.
         accommodationCreateDTO.availabilityPeriods.push({
           price: availabilityPeriod.price,
           period: {
-            startTimestamp: formatStartDate.getTime(),
-            endTimestamp: formatEndDate.getTime()
+            startDate: availabilityPeriod.period.startDate,
+            endDate: availabilityPeriod.period.endDate
           }
         });
       }

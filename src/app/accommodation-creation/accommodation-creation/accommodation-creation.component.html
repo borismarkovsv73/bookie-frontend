@@ -13,24 +13,24 @@
           <!-- Name Field -->
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Name</mat-label>
-            <input matInput name="name" [(ngModel)]="accommodation.name" required>
+            <input matInput id="name-input" name="name" [(ngModel)]="accommodation.name" required>
           </mat-form-field>
 
           <!-- Description Field -->
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Description</mat-label>
-            <textarea matInput style="resize: none" rows="3" placeholder="Description" name="description" [(ngModel)]="accommodation.description" required></textarea>
+            <textarea matInput id="description-input" style="resize: none" rows="3" placeholder="Description" name="description" [(ngModel)]="accommodation.description" required></textarea>
           </mat-form-field>
 
           <!-- Location Field -->
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Latitude</mat-label>
-            <input matInput placeholder="Latitude" [(ngModel)]="accommodation.location.latitude" name="latitude" required>
+            <input matInput id="latitude-input" placeholder="Latitude" [(ngModel)]="accommodation.location.latitude" name="latitude" required>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Longitude</mat-label>
-            <input matInput placeholder="Longitude" name="longitude" [(ngModel)]="accommodation.location.longitude" required>
+            <input matInput id="longitude-input" placeholder="Longitude" name="longitude" [(ngModel)]="accommodation.location.longitude" required>
           </mat-form-field>
 
           <mat-checkbox [(ngModel)]="accommodation.reservationAutoAccepted" name="isReservationAutoAccepted" class="autoAccept">Auto accept reservations?</mat-checkbox>
@@ -38,20 +38,20 @@
           <!-- Price mode: chosen once for the whole property -->
           <mat-label class="section-label">Pricing mode</mat-label>
           <mat-radio-group [(ngModel)]="accommodation.pricedPerGuest" name="pricedPerGuest" class="price-mode-group">
-            <mat-radio-button [value]="true">Price per guest</mat-radio-button>
-            <mat-radio-button [value]="false">Price per accommodation/unit</mat-radio-button>
+            <mat-radio-button id="priced-per-guest-true-radio" [value]="true">Price per guest</mat-radio-button>
+            <mat-radio-button id="priced-per-guest-false-radio" [value]="false">Price per accommodation/unit</mat-radio-button>
           </mat-radio-group>
 
           <!-- Reservation cancellation deadline -->
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Days before check-in a reservation can still be cancelled</mat-label>
-            <input matInput type="number" min="0" name="reservationCancellationDeadline" [(ngModel)]="accommodation.reservationCancellationDeadline" required>
+            <input matInput id="cancellation-deadline-input" type="number" min="0" name="reservationCancellationDeadline" [(ngModel)]="accommodation.reservationCancellationDeadline" required>
           </mat-form-field>
 
           <!-- Accommodation Type ComboBox -->
           <mat-form-field appearance="outline" class="combo-boxes">
             <mat-label>Accommodation Type</mat-label>
-            <mat-select name="type" [(ngModel)]="accommodation.type">
+            <mat-select id="type-select" name="type" [(ngModel)]="accommodation.type">
               <mat-option *ngFor="let type of accommodationTypes" [value]="type">{{ type }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -59,13 +59,13 @@
           <!-- Guests Slider -->
           <mat-label>Min and Max Guests</mat-label>
           <mat-slider class="full-width" min="1" max="10" step="1" discrete>
-            <input [(ngModel)]="accommodation.minimumGuests" matSliderStartThumb name="minimumGuests">
-            <input [(ngModel)]="accommodation.maximumGuests" matSliderEndThumb name="maximumGuests">
+            <input id="min-guests-input" [(ngModel)]="accommodation.minimumGuests" matSliderStartThumb name="minimumGuests">
+            <input id="max-guests-input" [(ngModel)]="accommodation.maximumGuests" matSliderEndThumb name="maximumGuests">
           </mat-slider>
 
           <!--Availability dates-->
           <mat-label>Availability periods</mat-label>
-          <div class="availability-period" *ngFor="let period of accommodation.availabilityPeriods; let i = index">
+          <div class="availability-period added-period" *ngFor="let period of accommodation.availabilityPeriods; let i = index">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Enter a date range</mat-label>
               <mat-date-range-input [rangePicker]="picker" disabled>
@@ -80,21 +80,21 @@
             </mat-form-field>
             <button mat-flat-button color="primary" class="delete-button" (click)="deletePeriod(i)">Delete</button>
           </div>
-          <div class="availability-period">
+          <div class="availability-period" id="new-period-row">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Enter a date range</mat-label>
               <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate name="newStartDate" [(ngModel)]="newStartDate">
-                <input matEndDate name="newEndDate" [(ngModel)]="newEndDate">
+                <input matStartDate id="new-start-date-input" name="newStartDate" [(ngModel)]="newStartDate">
+                <input matEndDate id="new-end-date-input" name="newEndDate" [(ngModel)]="newEndDate">
               </mat-date-range-input>
               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
             <mat-form-field appearance="outline" class="full-width price">
               <mat-label>Price</mat-label>
-              <input matInput name="newPrice" [(ngModel)]="newPrice">
+              <input matInput id="new-price-input" name="newPrice" [(ngModel)]="newPrice">
             </mat-form-field>
-            <button mat-flat-button color="primary" class="delete-button" (click)="addPeriod()">Add</button>
+            <button id="add-period-button" mat-flat-button color="primary" class="delete-button" (click)="addPeriod()">Add</button>
           </div>
 
           <mat-checkbox class="combo-boxes" *ngFor="let amenity of amenities" [checked]="accommodation.amenities.includes(amenity)" (change)="updateAmenities(amenity)">
@@ -102,7 +102,7 @@
           </mat-checkbox>
 
           <!-- Submit Button -->
-          <button mat-raised-button color="primary" class="forum-buttons" type="submit" (click)="CreateAccommodation()" form="form">Create accommodation</button>
+          <button id="create-accommodation-button" mat-raised-button color="primary" class="forum-buttons" type="button" (click)="CreateAccommodation()">Create accommodation</button>
         </div>
       </form>
     </mat-card-content>

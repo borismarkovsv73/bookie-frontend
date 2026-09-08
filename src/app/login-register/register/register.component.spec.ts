@@ -15,13 +15,6 @@ import { MaterialModule } from '../../infrastructure/material/material.module';
 import { SharedModule } from '../../shared/shared.module';
 import { NewUser } from './model/new-user.model';
 
-/**
- * Functionality 3.1 - Account registration.
- * Tests the registration form (validity rules, password confirmation,
- * required fields, submit-button enablement) and verifies that the data
- * entered by the user is correctly mapped and sent to the backend via
- * AuthenticationService.register().
- */
 describe('RegisterComponent', (): void => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
@@ -29,9 +22,6 @@ describe('RegisterComponent', (): void => {
   let sharedServiceSpy: jasmine.SpyObj<SharedService>;
   let router: Router;
 
-  // A complete set of valid values for every control in the form, used as a
-  // baseline that individual tests tweak (e.g. clearing one field, or
-  // making the two password fields differ).
   const validValues = {
     email: 'test.user@example.com',
     password: 'Password123',
@@ -77,11 +67,6 @@ describe('RegisterComponent', (): void => {
       ],
     }).compileComponents();
 
-    // RouterTestingModule provides a real (but navigation-inert) Router, since
-    // the template's `[routerLink]` on the "Already have an account?" link
-    // needs a real Router instance to render correctly (a bare spy object
-    // does not satisfy RouterLink's internal dependencies). We spy on the
-    // real instance's navigate() method instead of replacing the whole Router.
     router = TestBed.inject(Router);
     spyOn(router, 'navigate');
 
@@ -150,26 +135,11 @@ describe('RegisterComponent', (): void => {
       expect(component.registerForm.invalid).toBeTrue();
       expect(getSubmitButton().disabled).toBeTrue();
 
-      // The template's mismatch <mat-error> is gated behind
-      // `registerForm.hasError('passwordMismatch') && confirmPassword.touched`, so an
-      // untouched control never shows it.
       const matErrorBeforeTouch = fixture.debugElement.query(By.css('mat-error'));
       expect(matErrorBeforeTouch).toBeNull();
 
       component.registerForm.get('confirmPassword')?.markAsTouched();
       fixture.detectChanges();
-
-      // NOTE (documented actual behaviour, verified against Angular Material's
-      // form-field source): even after the control is touched, the <mat-error>
-      // still does not render. MatFormField only projects <mat-error> content
-      // when its own `_control.errorState` is true, and that state is derived
-      // solely from the *individual* confirmPassword FormControl's own
-      // validity (via the default ErrorStateMatcher: control.invalid && touched).
-      // Since `passwordMismatch` is set on the parent FormGroup and not on the
-      // confirmPassword control itself, confirmPassword.invalid stays false,
-      // so MatFormField's error slot is never activated - this message is
-      // effectively unreachable in the running app, independent of touched
-      // state. This is a pre-existing template limitation, not a test issue.
       const matErrorAfterTouch = fixture.debugElement.query(By.css('mat-error'));
       expect(matErrorAfterTouch).toBeNull();
     }
